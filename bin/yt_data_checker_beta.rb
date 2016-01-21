@@ -7,6 +7,7 @@ class Datachecker
     @mismatch = Hash.new(0)
     @Csv_file_one = Struct.new(:account_email, :youtube_channel, :subscriber_count)
     @Csv_file_two = Struct.new(:account_email, :youtube_channel, :subscriber_count)
+    
   end
 
 
@@ -31,8 +32,9 @@ class Datachecker
           end
         end
       end
-      yield @mismatch
+      yield @mismatch, third  # pass the concern param
     end
+     
   end
 
   def method_name(row1, row2)
@@ -42,11 +44,17 @@ class Datachecker
   end
 
   def pick_mismatch(csv_file_one_new, csv_file_two_new)
-    true_classor_false_class = csv_file_two_new.account_email == csv_file_one_new.account_email
-    classor_false_class = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
-    false_class = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
-    true_classor_false_class &&((classor_false_class) || (false_class))
+    is_email_same = csv_file_two_new.account_email == csv_file_one_new.account_email
+    is_channel_diff = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
+    is_subscriber_count_same = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
+    is_email_same &&((is_channel_diff) || (is_subscriber_count_same))
   end
+  # def pick_mismatch(csv_file_one_new, csv_file_two_new)
+  #   is_email_same = csv_file_two_new.account_email == csv_file_one_new.account_email
+  #   is_channel_diff = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
+  #   is_subscriber_count_same_ = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
+  #   is_email_same &&((is_channel_diff) || (is_subscriber_count_same_))
+  # end
 
   def filterchannel(row1)
     row_youtube_channel_include = row1[:youtube_channel].include?('youtube')
@@ -93,14 +101,7 @@ end
 # End of Class Datachecker
 
 datachecker=Datachecker.new
-hashy=datachecker.compare { |yielder| yielder }
-puts hashy
-
-class Hash
-  def find
-    each do |value|
-      return value.class if yield(value)
-    end
-    nil
-  end
-end
+ hashy=datachecker.compare { |yielder, d| [yielder, d]}
+# puts hashy.fetch(@third).members
+ p concern = hashy[1]
+ hashy
