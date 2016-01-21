@@ -1,4 +1,12 @@
 How to use Datachecker
 =======================
-`def hi
- end`
+
+
+
+
+This is an H2
+-------------
+----------------------------------------------------------
+To run this script:
+    ruby yt_data_checker.rb full.csv full2.csv [option]
+-------------------------------------------------------------
