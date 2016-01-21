@@ -93,8 +93,8 @@ end
 # End of Class Datachecker
 
 datachecker=Datachecker.new
-datachecker.compare { |yielder| yielder.select {} }
-
+hashy=datachecker.compare { |yielder| yielder }
+puts hashy
 
 class Hash
   def find
