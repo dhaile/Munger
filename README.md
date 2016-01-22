@@ -4,19 +4,27 @@ How to use Datachecker
 
 
 
-Machin Requirment
-----------------
+Machine Requirement
+-------------------
 
-This program can be run on any machine that has ruby, preferbly the latest. First change to bin directory which contain the programm for your conveniance
-we have also includeed the data file that the program ingest. Once in bin directory, run the following command
+This program can be run on any machine that has ruby, preferably the latest. First change to bin directory which contain the programm for your conveniance
+we have also included the data file that the program ingest. Once in bin directory, run the following command
  
-----------------------------------------------------------
-    ruby yt_data_checker.rb full.csv full2.csv [option]
--------------------------------------------------------------
-> ###### Example
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ruby yt_data_checker.rb full.csv full2.csv [option]  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Let say that the option is `test_14@gmail.com` then we issue the following command to run the program
+where option(above) is `channel_ownership` or `channel_ownership`
 
--------------------------------------------------------------------------------------------------------
-   `ruby yt_data_checker.rb fullscreen_test.csv fullscreen_test2.csv 'test_14@gmail.com'`
------------------------------------------------------------------------------------------------------
+> ###### Examples
+  Let say that the option is `channel_ownership` then we issue the following command to run the program
+>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ruby yt_data_checker_beta.rb fullscreen_test.csv fullscreen_test2.csv channel_ownership
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+>
+Or the option is `subscriber_count` the we issue:
+>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    ruby yt_data_checker_beta.rb fullscreen_test.csv fullscreen_test2.csv subscriber_count
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
