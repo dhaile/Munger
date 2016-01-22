@@ -17,20 +17,12 @@ class Datachecker
     File.open(first) do |input_file|
       File.open(second) do |input_file2|
         CSV.foreach(input_file, headers: true, converters: :numeric, header_converters: :symbol) do |row1|
-          # puts 'before'
-          #     p row1[1]
           filterchannel(row1)
           filter_subscriber_count(row1)
-          # puts 'after'
-          #   p row1[1]
-          CSV.foreach(input_file2, headers: true, converters: :numeric, header_converters: :symbol) do |row2|
-            #  puts 'before'
-            # p  row2[1]
+           CSV.foreach(input_file2, headers: true, converters: :numeric, header_converters: :symbol) do |row2|
             filterchannel(row2)
             filter_subscriber_count(row2)
-            # puts 'after'
-            #  p row2[1]
-            csv_file_one_new, csv_file_two_new = method_name(row1, row2)
+              csv_file_one_new, csv_file_two_new = method_name(row1, row2)
             if third
               if third.to_s == 'subscriber_count'
                 pick_mismatch = pick_mismatch_subscriber_count(csv_file_one_new, csv_file_two_new)
@@ -38,7 +30,6 @@ class Datachecker
                 pick_mismatch = pick_mismatch_channel(csv_file_one_new, csv_file_two_new)
               else
                 puts 'option can be only  subscriber_count and channel_ownership'
-
               end
             else
               pick_mismatch = pick_mismatch(csv_file_one_new, csv_file_two_new)
