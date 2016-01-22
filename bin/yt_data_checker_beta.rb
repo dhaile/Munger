@@ -4,14 +4,15 @@ require 'csv'
 class Datachecker
 
   def initialize()
+
     @mismatch = Hash.new(0)
     @Csv_file_one = Struct.new(:account_email, :youtube_channel, :subscriber_count)
     @Csv_file_two = Struct.new(:account_email, :youtube_channel, :subscriber_count)
 
   end
 
-
   def compare
+
     first, second, third = ARGV
     File.open(first) do |input_file|
       File.open(second) do |input_file2|
@@ -45,7 +46,6 @@ class Datachecker
             if pick_mismatch
               puts csv_file_two_new.account_email
               @mismatch[csv_file_two_new.account_email]=csv_file_two_new
-
               break
             end
           end
@@ -73,29 +73,17 @@ class Datachecker
   def pick_mismatch_channel(csv_file_one_new, csv_file_two_new)
     is_email_same = csv_file_two_new.account_email == csv_file_one_new.account_email
     is_channel_diff = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
-    # is_subscriber_count_same = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
-     is_email_same && is_channel_diff
+    is_email_same && is_channel_diff
   end
-
 
   def pick_mismatch_subscriber_count(csv_file_one_new, csv_file_two_new)
     is_email_same = csv_file_two_new.account_email == csv_file_one_new.account_email
-    # is_channel_diff = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
     is_subscriber_count_same = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
-     is_email_same && is_subscriber_count_same
+    is_email_same && is_subscriber_count_same
   end
 
-  # def pick_mismatch(csv_file_one_new, csv_file_two_new)
-  #   is_email_same = csv_file_two_new.account_email == csv_file_one_new.account_email
-  #   is_channel_diff = csv_file_two_new.youtube_channel != csv_file_one_new.youtube_channel
-  #   is_subscriber_count_same_ = csv_file_two_new.subscriber_count != csv_file_one_new.subscriber_count
-  #   is_email_same &&((is_channel_diff) || (is_subscriber_count_same_))
-  # end
-
   def filterchannel(row1)
-
-    # STDERR.puts "Processing #{row1[1]}"
-    row_youtube_channel_include = row1[1].include?('youtube')
+     row_youtube_channel_include = row1[1].include?('youtube')
     if row_youtube_channel_include
       channel_filter1(row1)
     else
@@ -134,14 +122,9 @@ class Datachecker
       row1[1] = channel
     end
   end
-
-  def option_filter(factor)
-    return Proc.new { |n| factor }
-  end
 end
 # End of Class Datachecker
 
 datachecker=Datachecker.new
-hashy=datachecker.compare { |yielder, d| [yielder, d] }
-# puts hashy.fetch(@third).members
-concern = hashy[1]
+datachecker.compare { |yielder, d| [yielder, d] }
+
